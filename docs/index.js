@@ -3377,6 +3377,7 @@ const { clamp, linspace } = require('canvas-sketch-util/math')
 
 const settings = {
   dimensions: [800, 600],
+  animate: true,
 }
 const gridSize = 50
 
@@ -3460,13 +3461,13 @@ const walkGrid = ({ context, grid }) => {
 
   let stuck = 0
 
-  while (true) {
-    if (stuck > 100) return
+  const step = (frame) => {
+    if (stuck > 100) return null
 
     if (visited.has(pointIndex)) {
       // already been here - jump somewhere new
       pointIndex = random.pick(Array.from(available.values()))
-      continue
+      return
     }
 
     // pick a random neighbour
@@ -3475,7 +3476,7 @@ const walkGrid = ({ context, grid }) => {
       // already visited all my neighbours - jump somewhere new
       pointIndex = random.pick(Array.from(available.values()))
       stuck++
-      continue
+      return
     }
 
     // draw a line between them
@@ -3489,29 +3490,22 @@ const walkGrid = ({ context, grid }) => {
     pointIndex = nextPointIndex
     stuck = 0
   }
-
-  // context.strokeStyle = 'rgb(255, 0, 0)'
-  // const [x, y] = grid[pointIndex]
-  console.log({ pointIndex, neighbours })
-  // drawCircle(context, x, y, 5)
-
-  // context.strokeStyle = 'rgb(0, 0, 255)'
-  // neighbours.map(([x, y]) => {
-  //   drawCircle(context, x, y, 5)
-  // })
+  return step
 }
 
-const sketch = () => {
-  return ({ context, width, height }) => {
-    // bg
-    context.fillStyle = 'white'
-    context.fillRect(0, 0, width, height)
+const sketch = ({ context, width, height }) => {
+  // bg
+  context.fillStyle = 'white'
+  context.fillRect(0, 0, width, height)
 
-    // grid
-    const grid = isogrid({ context, width, height })
+  // grid
+  const grid = isogrid({ context, width, height })
 
-    // walk
-    walkGrid({ context, grid })
+  // walk
+  const step = walkGrid({ context, grid })
+
+  return ({ frame }) => {
+    step(frame)
   }
 }
 

@@ -23,7 +23,7 @@ const isogrid = ({ context, width, height }) => {
       ])
     }
   }
-  context.fillStyle = 'rgb(150, 150, 150)'
+  context.fillStyle = 'rgb(200, 200, 200)'
   ar.map(([x, y]) => context.fillRect(x - 1, y - 1, 2, 2))
   // console.log({ ar })
   return ar

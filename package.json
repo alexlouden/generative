@@ -5,6 +5,6 @@
     "canvas-sketch-util": "^1.10.0"
   },
   "scripts": {
-    "build": "canvas-sketch sketches/iso.js --dir docs --build --no-compress"
+    "build": "canvas-sketch sketches/iso.js --dir docs --build --no-compress --name index"
   }
 }

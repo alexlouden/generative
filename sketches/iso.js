@@ -73,14 +73,14 @@ const getFreeNeighbour = ({ visited, pointIndex, grid }) => {
 const drawLine = (context, grid, p1, p2) => {
   const [x1, y1] = grid[p1]
   const [x2, y2] = grid[p2]
-  context.lineWidth = 3
-  context.strokeStyle = 'lightblue'
+  context.lineWidth = 4
+  context.strokeStyle = 'black'
   context.beginPath()
   context.moveTo(x1, y1)
   context.lineTo(x2, y2)
   context.stroke()
-  context.lineWidth = 1
-  context.strokeStyle = 'black'
+  context.lineWidth = 3
+  context.strokeStyle = 'white'
   context.beginPath()
   context.moveTo(x1, y1)
   context.lineTo(x2, y2)

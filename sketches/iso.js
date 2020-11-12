@@ -6,7 +6,8 @@ const settings = {
   dimensions: [800, 600],
   animate: true,
 }
-const gridSize = 50
+// must be an even number or everything breaks
+const gridSize = 44
 
 const isogrid = ({ context, width, height }) => {
   let ar = []
@@ -70,10 +71,18 @@ const getFreeNeighbour = ({ visited, pointIndex, grid }) => {
 }
 
 const drawLine = (context, grid, p1, p2) => {
-  context.beginPath()
   const [x1, y1] = grid[p1]
-  context.moveTo(x1, y1)
   const [x2, y2] = grid[p2]
+  context.lineWidth = 3
+  context.strokeStyle = 'lightblue'
+  context.beginPath()
+  context.moveTo(x1, y1)
+  context.lineTo(x2, y2)
+  context.stroke()
+  context.lineWidth = 1
+  context.strokeStyle = 'black'
+  context.beginPath()
+  context.moveTo(x1, y1)
   context.lineTo(x2, y2)
   context.stroke()
 }
